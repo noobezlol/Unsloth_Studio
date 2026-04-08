@@ -1,0 +1,11 @@
+/launcher/target/
+**/*.rs.bk
+/outputs/
+__pycache__/
+*.py[cod]
+settings.json
+/configs/active_run.json
+*.csv
+*.jsonl
+*.parquet
+.DS_Store
