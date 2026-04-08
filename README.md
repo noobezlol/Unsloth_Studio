@@ -114,7 +114,7 @@ cd Unsloth-Studio
 xhost +local:root
 
 # Build and run the container
-docker-compose up --build
+docker compose up --build
 ```
 
 **Data Persistence:**
