@@ -1,0 +1,39 @@
+services:
+  unsloth-studio:
+    build: .
+    image: unsloth-studio:latest
+    container_name: unsloth_studio
+    
+    # 1. Hardware Access
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    # 2. Network & Privileges
+    network_mode: host
+    ipc: host
+    privileged: true
+    
+    # 3. Environment Config
+    environment:
+      # Pass the host display variable dynamically
+      - DISPLAY=${DISPLAY}
+      # FORCE Rust to use X11 (Critical for Ubuntu 24.04/Wayland)
+      - WINIT_UNIX_BACKEND=x11
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    
+    volumes:
+      # Mount the X11 socket
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      # Persist data
+      - ./outputs:/app/outputs
+      - ./training_data:/app/training_data
+
+    # 4. OVERRIDE THE CHECK SCRIPT
+    # This skips the "Red Box" error and launches the app directly
+    entrypoint: ["/app/UnslothStudio"]

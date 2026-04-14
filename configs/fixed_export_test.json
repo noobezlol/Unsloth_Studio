@@ -1,0 +1,22 @@
+{
+  "model": {
+    "base_model": "unsloth/llama-3-8b-bnb-4bit",
+    "load_in_4bit": true,
+    "lora_r": 16,
+    "lora_alpha": 16,
+    "lora_dropout": 0,
+    "max_seq_length": 2048
+  },
+  "training": {
+    "batch_size": 2,
+    "learning_rate": 0.0002,
+    "max_steps": 10,
+    "output_dir": "outputs",
+    "grad_accum_steps": 4,
+    "warmup_steps": 10,
+    "logging_steps": 1,
+    "export_name": "my_custom_model"
+  },
+  "dataset_path": "training_data.jsonl",
+  "method": "sft"
+}
